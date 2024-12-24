@@ -4,11 +4,13 @@ import green.project_2.User.UserMapper;
 import green.project_2.common.ResponseResult;
 import green.project_2.project.ProjectReq.ProjectDeleteReq;
 import green.project_2.project.ProjectReq.ProjectReq;
-import io.swagger.v3.oas.annotations.Parameter;
+import green.project_2.project.ProjectReq.ProjectUpReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -18,6 +20,7 @@ public class ProjectController {
     private final UserMapper userMapper;
     private final ProjectService projectService;
 
+
     // 프로젝트 생성
     @PostMapping  // "/api/project/project" 경로에 해당2
     public ResponseResult createProject(@RequestBody ProjectReq request) {
@@ -25,6 +28,8 @@ public class ProjectController {
 
         return projectService.createProject(request);
     }
+
+
 
 
     // 실제 프로젝트 삭제 로직
@@ -39,4 +44,21 @@ public class ProjectController {
         log.info("프로젝트 삭제 성공: {}", request.getProjectNo());
         return result;
     }
+
+
+    @PutMapping
+    public ResponseResult updateProject(@RequestBody ProjectUpReq request) {
+
+        // 수정 요청자 정보와 프로젝트 번호를 확인하여 수정 진행
+        return projectService.updateProject(request);
+    }
+
+
+    @GetMapping("search-user")
+    public ResponseResult searchUser(@ParameterObject String nickname) {
+        return projectService.getSearchUser(nickname);
+    }
+
+
+
 }

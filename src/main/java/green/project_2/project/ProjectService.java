@@ -1,10 +1,14 @@
 package green.project_2.project;
 
 import green.project_2.User.UserMapper;
+
+import green.project_2.User.UserResponse;
 import green.project_2.common.ResponseResult;
 import green.project_2.project.ProjectReq.ProjectDeleteReq;
 import green.project_2.project.ProjectReq.ProjectReq;       // ProjectReq import
+import green.project_2.project.ProjectReq.ProjectUpReq;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -67,4 +71,35 @@ public class ProjectService {
         return ResponseResult.success();
     }
 
+
+    // 프로젝트 수정
+    public ResponseResult updateProject(ProjectUpReq request) {
+        // 1. 리더 번호 조회
+        long leaderNo = userMapper.leaderNo(request.getProjectNo());
+
+        // 2. 요청자가 리더 권한을 가졌는지 확인
+        if (request.getSignedUserNo() != leaderNo) {
+            return ResponseResult.noPermission(); // 리더가 아니면 수정 불가
+        }
+
+        // 3. 프로젝트 정보 수정 (DB 업데이트)
+        int result = projectMapper.updateProject(request);
+
+        if (result == 0) {
+            return ResponseResult.serverError(); // 수정 실패
+        }
+
+        // 4. 수정 성공
+        return ResponseResult.success();
+    }
+
+
+    public ResponseResult getSearchUser(String nickname) {
+        UserResponse<Integer> User1 = projectMapper.searchUser(nickname);
+        boolean exist=User1.getExistSchedule()==1?true:false;
+        return new UserResponse<Boolean> ("OK", User1.getUserNo()
+                , User1.getNickname()
+                , User1.getPic()
+                , exist);
+    }
 }

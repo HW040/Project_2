@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 //2
+@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,4 +42,9 @@ public class ResponseResult {
     public static ResponseResult noPermission() {
         return new ResponseResult(ResponseCode.NO_FORBIDDEN.getCode());
     }
+
+
+
+
+
 }

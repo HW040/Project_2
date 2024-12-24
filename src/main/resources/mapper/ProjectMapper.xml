@@ -12,4 +12,30 @@
         delete from project
         where project_no= #{pro}
     </delete>
+
+    <update id="updateProject" >
+    UPDATE project
+    SET title = #{title},
+    description = #{description},
+    start_at = #{startAt},
+    deadline = #{deadLine}
+    WHERE project_no = #{projectNo}
+    </update>
+
+
+    <select id="searchUser">
+        SELECT
+        A.user_no AS userNo,
+        A.nickname,
+        A.profile_pic AS pic,
+        EXISTS(
+        SELECT 1
+        FROM schedule C
+        INNER JOIN user_project B
+        ON B.user_project_no = C.user_project_no
+        WHERE B.user_no = A.user_no
+        ) AS existSchedule
+        FROM user A
+        WHERE A.nickname #={nickname};
+    </select>
 </mapper>
