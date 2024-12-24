@@ -28,8 +28,8 @@ public class ProjectService {
 
         // 필수 값 검증 (누락된 값이 있으면 에러 반환)
         if (request == null || request == null ||
-                request.getName() == null ||
-                request.getWriterUserNo() == null ||
+                request.getTitle() == null ||
+                request.getSignedUserNo() == null ||
                 request.getDescription() == null ||
                 request.getStartAt() == null ||
                 request.getDeadLine() == null) {

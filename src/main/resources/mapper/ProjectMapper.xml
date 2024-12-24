@@ -5,7 +5,7 @@
 <mapper namespace="green.project_2.project.ProjectMapper">
     <insert id="createProject">
         INSERT INTO project (title, leader_no, description, start_at, deadline)
-        VALUES (#{name}, #{writerUserNo}, #{description}, #{startAt}, #{deadLine})
+        VALUES (#{title}, #{signedUserNo}, #{description}, #{startAt}, #{deadLine})
     </insert>
 
     <delete id="deleteProject">
