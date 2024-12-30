@@ -3,6 +3,7 @@
         PUBLIC "-//mybatisorg//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="green.project_2.project.ProjectMapper">
+
     <insert id="createProject">
         INSERT INTO project (title, leader_no, description, start_at, deadline)
         VALUES (#{title}, #{signedUserNo}, #{description}, #{startAt}, #{deadLine})
@@ -27,14 +28,7 @@
         SELECT
         A.user_no AS userNo,
         A.nickname,
-        A.profile_pic AS pic,
-        EXISTS(
-        SELECT 1
-        FROM schedule C
-        INNER JOIN user_project B
-        ON B.user_project_no = C.user_project_no
-        WHERE B.user_no = A.user_no
-        ) AS existSchedule
+        A.profile_pic AS pic
         FROM user A
         WHERE A.nickname #={nickname};
     </select>

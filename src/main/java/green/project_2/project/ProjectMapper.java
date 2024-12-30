@@ -1,6 +1,6 @@
 package green.project_2.project;
 
-import green.project_2.User.UserResponse;
+import green.project_2.project.ProjectRes.UserResponse;
 import green.project_2.project.ProjectReq.ProjectReq;
 import green.project_2.project.ProjectReq.ProjectUpReq;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +14,6 @@ public interface ProjectMapper {
     // 프로젝트 수정
     int updateProject(ProjectUpReq request);
 
-    int selectProject(long pro);
 
     UserResponse searchUser(String nickname);
 }
